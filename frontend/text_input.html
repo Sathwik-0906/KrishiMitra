@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crop Recommendation</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Crop Details</h1>
+        <form id="text-form">
+            <div class="form-group">
+                <label for="land-area">Land Area (in acres):</label>
+                <input type="number" id="land-area" required>
+            </div>
+            <div class="form-group">
+                <label for="prev-crop">Previous Crop:</label>
+                <input type="text" id="prev-crop" required>
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude:</label>
+                <input type="number" step="any" id="latitude" required>
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude:</label>
+                <input type="number" step="any" id="longitude" required>
+            </div>
+             <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" id="state" readonly>
+            </div>
+            <div class="form-group">
+                <label for="district">District:</label>
+                <input type="text" id="district" readonly>
+            </div>
+            <button type="button" id="get-location">Use My GPS Location</button>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="result-container">
+            <h3>Collected Data:</h3>
+            <pre id="json-output"></pre>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
