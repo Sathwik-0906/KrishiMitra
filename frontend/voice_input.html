@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Input for Crop Recommendation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Crop Recommendation (Voice Input)</h1>
+        <p>Press the "Start Listening" button and speak your answers.</p>
+        <p>For example, say "Land area 5 acres", "Previous crop rice".</p>
+
+        <form id="voice-form">
+            <div class="form-group">
+                <label for="land-area">Land Area (e.g., in acres):</label>
+                <input type="text" id="land-area" required>
+            </div>
+            <div class="form-group">
+                <label for="prev-crop">Previous Crop:</label>
+                <input type="text" id="prev-crop" required>
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude:</label>
+                <input type="text" id="latitude" required>
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude:</label>
+                <input type="text" id="longitude" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" id="state" required>
+            </div>
+            <div class="form-group">
+                <label for="district">District:</label>
+                <input type="text" id="district" required>
+            </div>
+
+            <div class="button-container">
+                <button type="button" id="start-listening" class="button">Start Listening</button>
+                <button type="button" id="get-location" class="button">Use My GPS Location</button>
+                <button type="submit" class="button">Submit</button>
+            </div>
+        </form>
+
+        <div id="status" class="status-box" style="display: none;"></div>
+
+        <div id="result-container" style="display: none;">
+            <h2>Submitted Data:</h2>
+            <pre id="json-output"></pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
