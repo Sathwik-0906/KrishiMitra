@@ -193,3 +193,48 @@ body {
     .sidebar-menu, .sidebar-bottom { display: none; } /* Basic responsive: hide menu */
     .main-header { flex-direction: column; gap: 16px; }
 }
+
+/* Add these new rules to your CSS file */
+
+/* ---- REPLACE these rules in your CSS file ---- */
+
+.recommendation-card .crop-subtext {
+    color: var(--text-secondary);
+    margin: 8px 0 24px 0;
+    /* Removed flex-grow to allow natural content flow */
+}
+
+.crop-stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
+    gap: 16px; /* Space between the boxes */
+    margin-top: auto; /* Pushes this section towards the bottom */
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+
+
+.stat-box span {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.stat-box strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+.stat-box {
+    background-color: #f0f4f8; /* Darker, slightly blue-tinted background */
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #657480; /* Matching darker border */
+}
+.image-container {
+  text-align: center;
+  width: 50%;
+  height: auto;
+}
