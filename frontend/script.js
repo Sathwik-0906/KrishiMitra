@@ -9,6 +9,83 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Translations
+const translations = {
+    en: {
+        title: "KrishiMitra",
+        dashboard: "Dashboard",
+        crop_recommendation: "Crop Recommendation",
+        market_prices: "Market Prices",
+        community_forum: "Community Forum",
+        settings: "Settings",
+        logout: "Log Out",
+        paddy_rice: "Paddy (Rice)",
+        paddy_rice_subtext: "This crop is highly recommended based on your local soil and climate data.",
+        sowing_season: "Sowing Season",
+        kharif: "Kharif",
+        growth_duration: "Growth Duration",
+        "120_days": "120 Days",
+        expected_yield: "Expected Yield",
+        yield_value: "4-5 tons/ha",
+        new_recommendation: "Get New Recommendation",
+        tomato: "Tomato",
+        onion: "Onion",
+        potato: "Potato",
+        cotton: "Cotton",
+        maize: "Maize",
+        wheat: "Wheat",
+    },
+    hi: {
+        title: "कृषि मित्र",
+        dashboard: "डैशबोर्ड",
+        crop_recommendation: "फसल सिफारिश",
+        market_prices: "बाजार मूल्य",
+        community_forum: "सामुदायिक मंच",
+        settings: "सेटिंग्स",
+        logout: "लॉग आउट",
+        paddy_rice: "धान (चावल)",
+        paddy_rice_subtext: "यह फसल आपके स्थानीय मिट्टी और जलवायु डेटा के आधार पर अत्यधिक अनुशंसित है।",
+        sowing_season: "बुवाई का मौसम",
+        kharif: "खरीफ",
+        growth_duration: "विकास की अवधि",
+        "120_days": "120 दिन",
+        expected_yield: "अपेक्षित उपज",
+        yield_value: "4-5 टन/हेक्टेयर",
+        new_recommendation: "नई सिफारिश प्राप्त करें",
+        tomato: "टमाटर",
+        onion: "प्याज",
+        potato: "आलू",
+        cotton: "कपास",
+        maize: "मक्का",
+        wheat: "गेहूँ",
+    },
+    te: {
+        title: "కృషి మిత్ర",
+        dashboard: "డాష్బోర్డ్",
+        crop_recommendation: "పంట సిఫార్సు",
+        market_prices: "మార్కెట్ ధరలు",
+        community_forum: "సంఘ వేదిక",
+        settings: "సెట్టింగులు",
+        logout: "లాగ్ అవుట్",
+        paddy_rice: "వరి (బియ్యం)",
+        paddy_rice_subtext: "ఈ పంట మీ స్థానిక నేల మరియు వాతావరణ సమాచారం ఆధారంగా చాలా సిఫార్సు చేయబడింది.",
+        sowing_season: "విత్తే కాలం",
+        kharif: "ఖరీఫ్",
+        growth_duration: "పెరుగుదల కాలం",
+        "120_days": "120 రోజులు",
+        expected_yield: "ఆశించిన దిగుబడి",
+        yield_value: "4-5 టన్నులు/హెక్టారుకు",
+        new_recommendation: "క్రొత్త సిఫార్సును పొందండి",
+        tomato: "టమోటా",
+        onion: "ఉల్లిపాయ",
+        potato: "బంగాళదుంప",
+        cotton: "పత్తి",
+        maize: "మొక్కజొన్న",
+        wheat: "గోధుమ",
+    },
+};
+
+
 // This function is still here for your other pages
 async function fetchAddress(lat, long) {
     const stateInput = document.getElementById('state');
@@ -36,12 +113,28 @@ async function fetchAddress(lat, long) {
 }
 
 /**
- * DASHBOARD PAGE LOGIC (No code needed)
+ * DASHBOARD PAGE LOGIC
  */
 function initDashboard() {
-    // This page is now static. No JavaScript is needed here.
     console.log("Final Dashboard Loaded.");
+    const languageSwitcher = document.getElementById('language-switcher');
+    const translatableElements = document.querySelectorAll('[data-key]');
+
+    function translatePage(language) {
+        translatableElements.forEach(element => {
+            const key = element.getAttribute('data-key');
+            element.textContent = translations[language][key];
+        });
+    }
+
+    languageSwitcher.addEventListener('change', (event) => {
+        translatePage(event.target.value);
+    });
+
+    // Initial translation
+    translatePage('en');
 }
+
 
 /**
  * TEXT INPUT PAGE LOGIC (Your original code - Unchanged)
