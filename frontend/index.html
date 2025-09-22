@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KrishiMitra Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
     <div class="page-container">
@@ -14,46 +14,81 @@
                 <h2><i class="fas fa-leaf"></i> KrishiMitra</h2>
             </div>
             <ul>
-                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="text_input.html"><i class="fas fa-keyboard"></i> Text Input</a></li>
-                <li><a href="voice_input.html"><i class="fas fa-microphone-alt"></i> Voice Input</a></li>
+                <li><a href="index.html" class="active"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+                <li><a href="text_input.html"><i class="fa-solid fa-seedling"></i> Crop Recommendation</a></li>
+                <li><a href="#"><i class="fa-solid fa-arrow-trend-up"></i> Market Prices</a></li>
+                <li><a href="#"><i class="fa-solid fa-users"></i> Community Forum</a></li>
+            </ul>
+            <ul class="sidebar-bottom">
+                <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
             </ul>
         </nav>
 
         <main class="content">
-            <header class="main-header">
-                <h1>Welcome Back, Farmer!</h1>
-                <p>Here's your agricultural dashboard for today.</p>
-            </header>
-
             <div class="dashboard-grid">
-                <div class="card large-card">
-                    <h2>Get Crop Recommendation</h2>
-                    <p>Provide your details to receive an AI-powered crop suggestion.</p>
-                    <div class="card-actions">
-                        <a href="text_input.html" class="action-button">
-                            <i class="fas fa-keyboard"></i>
-                            <span>Use Text Input</span>
-                        </a>
-                        <a href="voice_input.html" class="action-button">
-                            <i class="fas fa-microphone-alt"></i>
-                            <span>Use Voice Input</span>
-                        </a>
+                <div class="card recommendation-card">
+                    <div class="crop-illustration"></div>
+                    <h2>Paddy (Rice)</h2>
+                    <p class="crop-subtext">This crop is highly recommended based on your local soil and climate data.</p>
+                    
+                    <div class="crop-stats-container">
+                        <div class="stat-box">
+                            <span>Sowing Season</span>
+                            <strong>Kharif</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Growth Duration</span>
+                            <strong>120 Days</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Expected Yield</span>
+                            <strong>4-5 tons/ha</strong>
+                        </div>
                     </div>
+                    <a href="text_input.html" class="action-button">Get New Recommendation</a>
                 </div>
 
-                <div class="card weather-card">
-                    <h2><i class="fas fa-cloud-sun"></i> Weather Forecast</h2>
-                    <div id="weather-info">
-                        <p>Loading weather...</p>
-                    </div>
-                </div>
-
-                <div class="card info-card">
-                    <h2><i class="fas fa-lightbulb"></i> Did You Know?</h2>
-                    <p id="did-you-know-text">
-                        Crop rotation can naturally break the cycles of pests and diseases, improving soil health without excessive chemical use.
-                    </p>
+                <div class="card market-prices-card">
+                    <h3>Market Prices</h3>
+                    <ul>
+                        <li>
+                            <span class="crop-icon tomato">🍅</span>
+                            <span class="crop-name">Tomato</span>
+                            <span class="price">₹25/kg</span>
+                            <span class="trend up"><i class="fa-solid fa-arrow-up"></i> 2.5%</span>
+                        </li>
+                        <li>
+                            <span class="crop-icon onion">🧅</span>
+                            <span class="crop-name">Onion</span>
+                            <span class="price">₹30/kg</span>
+                            <span class="trend down"><i class="fa-solid fa-arrow-down"></i> 1.8%</span>
+                        </li>
+                        <li>
+                            <span class="crop-icon potato">🥔</span>
+                            <span class="crop-name">Potato</span>
+                            <span class="price">₹22/kg</span>
+                            <span class="trend up"><i class="fa-solid fa-arrow-up"></i> 5.2%</span>
+                        </li>
+                         <li>
+                            <span class="crop-icon cotton">🌱</span>
+                            <span class="crop-name">Cotton</span>
+                            <span class="price">₹72/kg</span>
+                            <span class="trend up"><i class="fa-solid fa-arrow-up"></i> 1.5%</span>
+                        </li>
+                         <li>
+                            <span class="crop-icon maize">🌽</span>
+                            <span class="crop-name">Maize</span>
+                            <span class="price">₹21/kg</span>
+                            <span class="trend down"><i class="fa-solid fa-arrow-down"></i> 0.5%</span>
+                        </li>
+                        <li>
+                            <span class="crop-icon wheat">🌾</span>
+                            <span class="crop-name">Wheat</span>
+                            <span class="price">₹28/kg</span>
+                            <span class="trend up"><i class="fa-solid fa-arrow-up"></i> 3.1%</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </main>

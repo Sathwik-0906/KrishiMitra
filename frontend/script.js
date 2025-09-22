@@ -9,11 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// This function can be called by any page that needs to get an address from coordinates
+// This function is still here for your other pages
 async function fetchAddress(lat, long) {
     const stateInput = document.getElementById('state');
     const districtInput = document.getElementById('district');
-    // Using the free OpenStreetMap (Nominatim) API for reverse geocoding.
     const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${long}`;
 
     try {
@@ -37,59 +36,15 @@ async function fetchAddress(lat, long) {
 }
 
 /**
- * DASHBOARD PAGE LOGIC
+ * DASHBOARD PAGE LOGIC (No code needed)
  */
 function initDashboard() {
-    // Function to get the user's location and then fetch the weather
-    const getWeatherData = () => {
-        const weatherInfoDiv = document.getElementById('weather-info');
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    await fetchWeather(lat, lon);
-                },
-                (error) => {
-                    console.error("Geolocation error:", error);
-                    weatherInfoDiv.innerHTML = '<p>Could not get location for weather.</p>';
-                }
-            );
-        } else {
-            weatherInfoDiv.innerHTML = '<p>Geolocation is not supported by this browser.</p>';
-        }
-    };
-
-    // Function to fetch weather from the Open-Meteo API
-    async function fetchWeather(lat, lon) {
-        const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
-        const weatherInfoDiv = document.getElementById('weather-info');
-        
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-
-            if (data && data.current_weather) {
-                const weather = data.current_weather;
-                weatherInfoDiv.innerHTML = `
-                    <p><strong>Temperature:</strong> ${weather.temperature}°C</p>
-                    <p><strong>Wind Speed:</strong> ${weather.windspeed} km/h</p>
-                `;
-            } else {
-                weatherInfoDiv.innerHTML = '<p>Could not fetch weather data.</p>';
-            }
-        } catch (error) {
-            console.error("Weather API error:", error);
-            weatherInfoDiv.innerHTML = '<p>Error fetching weather data.</p>';
-        }
-    }
-
-    // Call the function to get weather data when the dashboard loads
-    getWeatherData();
+    // This page is now static. No JavaScript is needed here.
+    console.log("Final Dashboard Loaded.");
 }
 
 /**
- * TEXT INPUT PAGE LOGIC
+ * TEXT INPUT PAGE LOGIC (Your original code - Unchanged)
  */
 function initTextPage() {
     const form = document.getElementById('text-form');
@@ -135,7 +90,7 @@ function initTextPage() {
 }
 
 /**
- * VOICE INPUT PAGE LOGIC
+ * VOICE INPUT PAGE LOGIC (Your original code - Unchanged)
  */
 function initVoicePage() {
     const form = document.getElementById('voice-form');
