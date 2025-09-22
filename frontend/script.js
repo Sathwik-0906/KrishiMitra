@@ -106,12 +106,12 @@ function initTextPage() {
                 stateInput.value = address.state || 'Not found';
                 districtInput.value = address.state_district || address.county || 'Not found';
             } else {
-                // Handle cases where the API doesn't find an address.
                 stateInput.value = 'Could not determine';
                 districtInput.value = 'Could not determine';
             }
+
+
         } catch (error) {
-            // Handle network errors or problems with the API call itself.
             console.error("Reverse geocoding error:", error);
             stateInput.value = 'API error';
             districtInput.value = 'API error';
