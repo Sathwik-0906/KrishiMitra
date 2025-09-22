@@ -3,18 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Crop Recommendation</title>
+    <title>KrishiMitra Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>AI Crop Recommendation</h1>
-        <p>How would you like to provide your details?</p>
-        <div class="button-container">
-            <a href="text_input.html" class="button">Enter Text</a>
-            <a href="voice_input.html" class="button">Speak Answers</a>
-        </div>
-    </div>
-</body>
+    <div class="page-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-leaf"></i> KrishiMitra</h2>
+            </div>
+            <ul>
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="text_input.html"><i class="fas fa-keyboard"></i> Text Input</a></li>
+                <li><a href="voice_input.html"><i class="fas fa-microphone-alt"></i> Voice Input</a></li>
+            </ul>
+        </nav>
 
+        <main class="content">
+            <header class="main-header">
+                <h1>Welcome Back, Farmer!</h1>
+                <p>Here's your agricultural dashboard for today.</p>
+            </header>
+
+            <div class="dashboard-grid">
+                <div class="card large-card">
+                    <h2>Get Crop Recommendation</h2>
+                    <p>Provide your details to receive an AI-powered crop suggestion.</p>
+                    <div class="card-actions">
+                        <a href="text_input.html" class="action-button">
+                            <i class="fas fa-keyboard"></i>
+                            <span>Use Text Input</span>
+                        </a>
+                        <a href="voice_input.html" class="action-button">
+                            <i class="fas fa-microphone-alt"></i>
+                            <span>Use Voice Input</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card weather-card">
+                    <h2><i class="fas fa-cloud-sun"></i> Weather Forecast</h2>
+                    <div id="weather-info">
+                        <p>Loading weather...</p>
+                    </div>
+                </div>
+
+                <div class="card info-card">
+                    <h2><i class="fas fa-lightbulb"></i> Did You Know?</h2>
+                    <p id="did-you-know-text">
+                        Crop rotation can naturally break the cycles of pests and diseases, improving soil health without excessive chemical use.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
