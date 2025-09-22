@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Input - Crop Recommendation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Answer with Your Voice</h1>
+        <button id="start-voice-btn">Start Questions</button>
+
+        <div id="voice-status">
+            <p>Press the button to begin.</p>
+        </div>
+
+        <div id="transcript-container">
+            <h3>Transcript:</h3>
+            <pre id="transcript-output"></pre>
+        </div>
+
+        <div id="result-container">
+            <h3>Collected Data:</h3>
+            <pre id="json-output"></pre>
+        </div>
+    </div>
+
+    <script src="voice_script.js"></script>
+</body>
+</html>

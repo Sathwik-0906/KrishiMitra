@@ -1,75 +1,154 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('crop-form');
-    const locationBtn = document.getElementById('location-btn');
-    const locationStatus = document.getElementById('location-status');
-    const recommendationDiv = document.getElementById('recommendation');
+    // Detect page type
+    if (document.getElementById('text-form')) {
+        initTextPage();
+    } else if (document.getElementById('start-voice-btn')) {
+        initVoicePage();
+    }
+});
 
-    let latitude = null;
-    let longitude = null;
+/**
+ * TEXT INPUT PAGE LOGIC
+ */
+function initTextPage() {
+    const form = document.getElementById('text-form');
+    const getLocationBtn = document.getElementById('get-location');
+    const latInput = document.getElementById('latitude');
+    const longInput = document.getElementById('longitude');
 
-    locationBtn.addEventListener('click', () => {
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        const data = {
+            landArea: document.getElementById('land-area').value,
+            previousCrop: document.getElementById('prev-crop').value,
+            latitude: latInput.value,
+            longitude: longInput.value,
+        };
+
+        const outputElement = document.getElementById('json-output');
+        const resultContainer = document.getElementById('result-container');
+        outputElement.textContent = JSON.stringify(data, null, 2);
+        resultContainer.style.display = 'block';
+    });
+
+    getLocationBtn.addEventListener('click', () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    latitude = position.coords.latitude;
-                    longitude = position.coords.longitude;
-                    locationStatus.textContent = 'Location set';
-                    locationStatus.style.color = 'green';
+                    latInput.value = position.coords.latitude.toFixed(6);
+                    longInput.value = position.coords.longitude.toFixed(6);
                 },
                 (error) => {
-                    locationStatus.textContent = 'Location denied';
-                    locationStatus.style.color = 'red';
+                    alert('Could not get your location. Please enter it manually.');
                     console.error("Geolocation error:", error);
                 }
             );
         } else {
-            locationStatus.textContent = 'Geolocation is not supported by this browser.';
+            alert('Geolocation is not supported by your browser.');
         }
     });
+}
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
+/**
+ * VOICE INPUT PAGE LOGIC (Whisper Integration)
+ */
+function initVoicePage() {
+    const startBtn = document.getElementById('start-voice-btn');
+    const statusDiv = document.getElementById('voice-status');
+    const transcriptOutput = document.getElementById('transcript-output');
+    const resultContainer = document.getElementById('result-container');
+    const jsonOutput = document.getElementById('json-output');
 
-        if (latitude === null || longitude === null) {
-            alert('Please allow location access first.');
-            return;
+    const questions = [
+        "What is the total land area in acres?",
+        "What was the last crop you cultivated?",
+        "What is the name of your state or province?"
+    ];
+
+    let currentQuestionIndex = 0;
+    const answers = {};
+
+    startBtn.addEventListener('click', () => {
+        startBtn.disabled = true;
+        askQuestion();
+    });
+
+    function askQuestion() {
+        if (currentQuestionIndex < questions.length) {
+            const question = questions[currentQuestionIndex];
+            speak(question, async () => {
+                await recordAndTranscribe(question);
+            });
+            statusDiv.innerHTML = `<p><strong>Asking:</strong> ${question}</p>`;
+        } else {
+            speak("Thank you. I have all the information.", () => {
+                statusDiv.innerHTML = "<p>All questions answered. Processing...</p>";
+                displayFinalResults();
+            });
         }
+    }
 
-        const landArea = document.getElementById('land-area').value;
-        const prevCrop = document.getElementById('prev-crop').value;
+    function speak(text, onEndCallback) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.onend = onEndCallback;
+        window.speechSynthesis.speak(utterance);
+    }
 
-        const data = {
-            latitude: latitude,
-            longitude: longitude,
-            land_area: parseFloat(landArea),
-            prev_crop: prevCrop
-        };
-
-        console.log('Sending to backend:', data);
-        
+    async function recordAndTranscribe(question) {
         try {
-            const response = await fetch('http://127.0.0.1:5000/predict_crop', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+            const audioChunks = [];
+
+            mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) audioChunks.push(event.data);
+            };
+
+            mediaRecorder.start();
+            statusDiv.innerHTML = "<p>Recording... Speak now!</p>";
+
+            // Record for 5 seconds (adjust if needed)
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            mediaRecorder.stop();
+
+            await new Promise(resolve => {
+                mediaRecorder.onstop = resolve;
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
 
-            const result = await response.json();
-            recommendationDiv.textContent = `Recommended Crop: ${result.recommended_crop}`;
-        } catch (error) {
-            // Display a detailed error and dummy data
-            recommendationDiv.innerHTML = `
-                <p style="color: red;">Error: Could not get recommendation from server.</p>
-                <p>Showing dummy data:</p>
-                <p><strong>Recommended Crop: Corn</strong></p>
-            `;
-            console.error('Fetch error:', error);
+            // Send audio to backend Whisper route
+            const formData = new FormData();
+            formData.append("audio", audioBlob, "answer.wav");
+
+            const response = await fetch("http://localhost:5000/transcribe_audio", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+            const transcript = data.transcript || "No transcription received";
+
+            transcriptOutput.textContent += `Q: ${question}\nA: ${transcript}\n\n`;
+
+            // Save answer in JSON object
+            const key = `answer${currentQuestionIndex + 1}`;
+            answers[key] = transcript;
+
+            currentQuestionIndex++;
+            askQuestion();
+        } catch (err) {
+            statusDiv.innerHTML = "<p>Error recording or transcribing audio. Please try again.</p>";
+            console.error(err);
+            startBtn.disabled = false;
         }
-    });
-});
+    }
+
+    function displayFinalResults() {
+        jsonOutput.textContent = JSON.stringify(answers, null, 2);
+        resultContainer.style.display = 'block';
+        document.getElementById('transcript-container').style.display = 'block';
+        startBtn.disabled = false;
+    }
+}
