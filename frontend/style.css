@@ -1,0 +1,162 @@
+/* --- General Body & Background --- */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    margin: 0;
+    color: #333;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+
+/* --- Main Container Card --- */
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    /* Reduced padding for a tighter layout */
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 420px; /* Slightly smaller max-width */
+}
+
+
+/* --- Typography --- */
+h1 {
+    /* Reduced margins */
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: #00796b;
+    font-weight: 700;
+    font-size: 1.5rem; /* Smaller heading */
+}
+
+
+p {
+    color: #555;
+    /* Reduced margins */
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+
+/* --- Form Styles for Clarity --- */
+.form-group {
+    /* Reduced margins */
+    margin-bottom: 0.75rem;
+    text-align: left;
+}
+
+
+label {
+    display: block;
+    /* Reduced margins */
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: #004d40;
+    font-size: 0.8rem; /* Smaller label */
+}
+
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    /* Reduced padding to make inputs shorter */
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #f8f9fa;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+
+input:focus {
+    outline: none;
+    border-color: #00796b;
+    box-shadow: 0 0 0 2px rgba(0, 121, 107, 0.2);
+    background-color: #fff;
+}
+
+
+/* --- Button Styles --- */
+.button, button {
+    background: linear-gradient(45deg, #26a69a, #00897b);
+    color: white;
+    /* Reduced padding to make buttons shorter */
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+
+button:hover, .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+
+.button-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+
+/* --- Result and Status Sections --- */
+#result-container, #transcript-container {
+    margin-top: 1.5rem;
+    text-align: left;
+    background-color: #f1f8e9;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #8bc34a;
+    display: none;
+}
+
+
+
+
+#json-output, #transcript-output {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Courier New', Courier, monospace;
+    background: #fff;
+    padding: 0.75rem;
+    border-radius: 4px;
+    color: #333;
+    font-size: 0.85rem;
+}
+
+
+#voice-status p {
+    font-style: italic;
+    color: #00796b;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
